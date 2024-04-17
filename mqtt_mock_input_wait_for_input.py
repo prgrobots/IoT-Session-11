@@ -1,5 +1,5 @@
 import paho.mqtt.client as mqtt
-import time
+
 
 def on_connect(client, userdata, flags, reason_code, properties):
     print("Connected with result code "+str(reason_code))
@@ -13,7 +13,7 @@ def wait_for_user_input():
     Waits for user input and returns the input value.
 
     Returns:
-        str: The user input value.
+        int: The user input value.
     """
 # TO DO - Create a function to prompt the user for an int with error handling 
 

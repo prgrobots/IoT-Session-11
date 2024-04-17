@@ -1,29 +1,25 @@
 import paho.mqtt.client as mqtt
 import time
 
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+def on_connect(client, userdata, flags, reason_code, properties):
+    print("Connected with result code "+str(reason_code))
     client.subscribe("test/topic")
 
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
 
-def publish_incrementing_value(client):
-    value = 0
-    while True:
-        value += 1
-        client.publish("test/topic", str(value))
-        print("Published: " + str(value))
-        time.sleep(1)
+def publish_incrementing_value():
+   """
+    Publishes an int that increases by 1 every second
+    
+    Returns:
+        int: The published value
+    """
 
-def main():
-    client = mqtt.Client()
-    client.on_connect = on_connect
-    client.on_message = on_message
+mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+mqttc.on_connect = on_connect
+mqttc.on_message = on_message
 
-    client.connect("broker.example.com", 1883, 60)
+mqttc.connect("mqtt.eclipseprojects.io", 1883, 60)
 
-    publish_incrementing_value(client)
-
-if __name__ == "__main__":
-    main()
+mqttc.loop_forever()
