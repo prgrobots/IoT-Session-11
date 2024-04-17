@@ -13,7 +13,7 @@ def wait_for_user_input():
     Waits for user input and returns the input value.
 
     Returns:
-        str: The user input value.
+        int: The user input value.
     """
     try:
         # TO DO
